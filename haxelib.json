@@ -1,17 +1,14 @@
 {
   "name": "haxetoml",
   "url": "https://github.com/codescapade/haxetoml",
-  "contributors": ["codescapade", "raincole"],
+  "contributors": ["codescapade", "raincole", "madmaccrow"],
   "tags": [
     "cross",
     "toml",
     "parser"
   ],
   "description": "A cross-platform TOML implementation in haxe.",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "license": "MIT",
-  "releasenote": "Added array of tables and inline tables support",
-  "dependencies": {
-    "haxe-strings": "7.0.3"
-  }
+  "releasenote": "Added array of tables and inline tables support"
 }

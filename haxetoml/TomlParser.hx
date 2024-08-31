@@ -1,8 +1,5 @@
 package haxetoml;
 
-using hx.strings.StringBuilder;
-using hx.strings.Strings;
-
 private enum TokenType {
   TkInvalid;
   TkComment;
@@ -235,28 +232,30 @@ class TomlParser {
   function createTable(table: String, tableArray: Bool) {
     final keys = table.split('.');
     var obj: Dynamic = root;
-
+    if (obj == null)
+      return;
     for (i in 0...keys.length) {
       final key = keys[i];
       var next = Reflect.field(obj, key);
       if (next == null) {
         if (tableArray) {
-          var next: Dynamic ={};
+          next ={};
           Reflect.setField(obj, key, [next]);
         } else {
-          Reflect.setField(obj, key, {});
-          next = Reflect.field(obj, key);
+          next ={};
+          Reflect.setField(obj, key, next);
         }
       } else if (i == keys.length - 1 && tableArray) {
         if (next is Array) {
-          final nextArray: Array<Dynamic> = next;
+          final nextArray: Array<Dynamic> = cast next;
           final nextItem: Dynamic ={};
           nextArray.push(nextItem);
           next = nextItem;
         }
       } else {
         if (next is Array) {
-          next = cast next[next.length - 1];
+          final nextArray: Array<Dynamic> = cast next;
+          next = nextArray[nextArray.length - 1];
         }
       }
       obj = next;
@@ -343,11 +342,11 @@ class TomlParser {
 
   function unescape(str: String) {
     var pos = 0;
-    final sb = new StringBuilder();
+    final sb = new StringBuf();
+    final len = str.length;
 
-    final len = str.length8();
     while (pos < len) {
-      var c = str.charCodeAt8(pos);
+      var c = str.charCodeAt(pos);
       // strip first and last quotation marks
       if ((pos == 0 || pos == len - 1) && c == '"'.code) {
         pos++;
@@ -357,7 +356,7 @@ class TomlParser {
       pos++;
 
       if (c == '\\'.code) {
-        c = str.charCodeAt8(pos);
+        c = str.charCodeAt(pos);
         pos++;
 
         switch (c) {
@@ -374,11 +373,11 @@ class TomlParser {
           case '/'.code, '\\'.code, '\''.code:
             sb.addChar(c);
           case 'u'.code:
-            final uc = Std.parseInt('0x${str.substr8(pos, 4)}');
+            final uc = Std.parseInt('0x${str.substr(pos, 4)}');
             sb.addChar(uc);
             pos += 4;
           case 'U'.code:
-            final uc = Std.parseInt('0x${str.substr8(pos, 8)}');
+            final uc = Std.parseInt('0x${str.substr(pos, 8)}');
             sb.addChar(uc);
             pos += 8;
           case '"'.code:
@@ -500,7 +499,7 @@ class TomlParser {
     return (new TomlParser()).parse(toml, defaultValue);
   }
 
-  #if (neko || php || cpp)
+  #if (neko || php || cpp || hl)
   /**
    * Static shortcut method to read toml file and parse into Dynamic object.  Available on Neko, PHP and CPP.
    */

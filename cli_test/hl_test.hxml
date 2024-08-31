@@ -1,0 +1,5 @@
+# hl
+-main ParserTest
+# -cp src
+-cp cli_test
+-hl out.hl

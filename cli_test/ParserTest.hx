@@ -7,7 +7,7 @@ class ParserTest {
       title: "Default Title",
       description: "Default Description Text"
     };
-    var parsedToml = TomlParser.parseFile('resources/test_files/$filename.toml');
+    var parsedToml = TomlParser.parseFile(filename);
     trace(parsedToml);
   }
 }
