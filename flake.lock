@@ -68,22 +68,6 @@
         "type": "github"
       }
     },
-    "haxestrings": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1711661950,
-        "narHash": "sha256-11JBGhQhzf9H9RzDiHFJAfEJFtY/Qbq4iDte0HmGWVQ=",
-        "owner": "vegardit",
-        "repo": "haxe-strings",
-        "rev": "a2ec6e70721bb43e27cc7f2e6299388226db43cc",
-        "type": "github"
-      },
-      "original": {
-        "owner": "vegardit",
-        "repo": "haxe-strings",
-        "type": "github"
-      }
-    },
     "haxix": {
       "inputs": {
         "dox": "dox",
@@ -190,7 +174,6 @@
     },
     "root": {
       "inputs": {
-        "haxestrings": "haxestrings",
         "haxix": "haxix",
         "nixpkgs": "nixpkgs_2"
       }

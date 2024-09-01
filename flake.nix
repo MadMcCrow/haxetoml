@@ -13,7 +13,7 @@
     haxix.url = "github:MadMcCrow/haxix/dev";
     
   };
-  outputs = { self, nixpkgs, haxix, haxestrings, ... }:
+  outputs = { self, nixpkgs, haxix, ... }:
     let
       # default system-agnostic flake implementation :
       flake = system:
@@ -25,8 +25,7 @@
             haxetoml = haxe.buildHaxelib rec {
               version = "0.4.0";
               pname = "haxetoml";
-              src = self + "/haxetoml";
-              buildInputs = [ ];
+              src = self;
               meta.licences = [ pkgs.lib.licenses.mit ];
               meta.description = "TOML support for haxe";
             };
